@@ -9,7 +9,7 @@ df_print: paged
 ---
 ---
 title: "Project 1"
-author: "Name: Wesley Newcomb \n Partner: Manuel Ricardo Vargas"
+author: "Name: Wesley Newcomb \n Partner: Manuel Ricardo Vargas and Diva Medina Camp"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
