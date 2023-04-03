@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Name: Wesley Newcomb Partner:" />
+<meta name="author" content="Name: Wesley Newcomb Partner: Manuel Ricardo Vargas and Diva Medina Camp" />
 
-<meta name="date" content="2023-03-30" />
+<meta name="date" content="2023-04-03" />
 
 <title>Project 1</title>
 
@@ -351,8 +351,9 @@ display: none;
 
 
 <h1 class="title toc-ignore">Project 1</h1>
-<h4 class="author">Name: Wesley Newcomb Partner:</h4>
-<h4 class="date">2023-03-30</h4>
+<h4 class="author">Name: Wesley Newcomb Partner: Manuel Ricardo Vargas
+and Diva Medina Camp</h4>
+<h4 class="date">2023-04-03</h4>
 
 </div>
 
@@ -510,11 +511,10 @@ recovered, and confirmed cases on the first day is Hubei.</p>
 this, you will need to use a for loop, if statement, and subsets.</p>
 <pre class="r"><code>confirmed_df&lt;-read.csv(&quot;data/time_series_covid19_confirmed_global.csv&quot;, 
                        header=TRUE, stringsAsFactors=FALSE)
-
 recent_df&lt;-arrange(confirmed_df[confirmed_df[,ncol(confirmed_df)-1] == 0 
                                 &amp; confirmed_df[,ncol(confirmed_df)] &gt; 0,])
-i&lt;-0
 
+i&lt;-0
 # If there are no new cases today loop back to find most recent region
 # to have new cases
 if (nrow(recent_df) == 0) {
@@ -629,7 +629,7 @@ and what important variables might be left out)?</p>
 <div id="objective-4.1" class="section level4">
 <h4>Objective 4.1</h4>
 <pre class="r"><code># Datasets respresent a cumlative sum by date, so last column represents 
-# sumation for region
+# summation for region
 confirmed_df&lt;-read.csv(&quot;data/time_series_covid19_confirmed_global.csv&quot;, 
                        header=TRUE, stringsAsFactors=FALSE)
 confirmed_df&lt;-select(confirmed_df, Province.State, 
@@ -716,6 +716,7 @@ global_deaths&lt;-sum(grouped_df$deaths)
 global_recovered&lt;-sum(grouped_df$recovered)
 global_risk&lt;-global_deaths / global_recovered
 global_burden&lt;-global_confirmed * global_risk
+
 cat(&quot;Global Data\n&quot;, 
     &quot;Confirmed:&quot;, global_confirmed, &quot;\n&quot;, 
     &quot;Deaths:   &quot;, global_deaths, &quot;\n&quot;,
@@ -807,9 +808,11 @@ grouped_df&lt;-as.data.frame(summarise_each(group_by(
 # Compute risk and burden by region
 grouped_df$risk&lt;-grouped_df$deaths / grouped_df$recovered
 grouped_df$burden&lt;-grouped_df$confirmed * grouped_df$risk
+
 confirmed_tb = kable(arrange(grouped_df, -confirmed)[1:5,])
 deaths_tb = kable(arrange(grouped_df, -deaths)[1:5,])
 recovered_tb = kable(arrange(grouped_df, -recovered)[1:5,])
+
 cat(&quot;Top 5 confirmed regions &quot;)</code></pre>
 <pre><code>## Top 5 confirmed regions</code></pre>
 <pre class="r"><code>confirmed_tb</code></pre>
