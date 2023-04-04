@@ -58,3 +58,4 @@ ggplot(starwars[-which.max(starwars$mass),]) +
   labs(title = "Scatter plot of height vs mass", 
        x = "Height", 
        y = "Mass")
+
