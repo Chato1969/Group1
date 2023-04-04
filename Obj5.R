@@ -7,67 +7,48 @@ output:
   df_print: paged
 ---
   
-  ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+  ### Objective 4.2
+  
+  # Datasets respresent a cumlative sum by date, so last column represents 
+  # sumation for region
+  confirmed_df<-read.csv("data/time_series_covid19_confirmed_global.csv", 
+                         header=TRUE, stringsAsFactors=FALSE)
+confirmed_df<-select(confirmed_df, Province.State, 
+                     Country.Region, ncol(confirmed_df))
+names(confirmed_df)[3] <- "confirmed"
+deaths_df<-read.csv("data/time_series_covid19_deaths_global.csv", 
+                    header=TRUE, stringsAsFactors=FALSE)
+deaths_df<-select(deaths_df, Province.State, 
+                  Country.Region, ncol(deaths_df))
+names(deaths_df)[3] <- "deaths"
+recovered_df<-read.csv("data/time_series_covid19_recovered_global.csv", 
+                       header=TRUE, stringsAsFactors=FALSE)
+recovered_df<-select(recovered_df, Province.State, 
+                     Country.Region, ncol(recovered_df))
+names(recovered_df)[3] <- "recovered"
 
-# Exercise 5: large data sets: Baby Name Popularity Over Time
-```{r Exercise5, echo=TRUE, eval=TRUE}
-# To solve this problem, we need wangle to the sexuality victual names data file, which is not provided in this prompt. However, I can explain the unstipulated tideway to tackle this problem.
-# Read in the female baby names data file found in the `data` folder into a 
-# variable called `names`. Remember to NOT treat the strings as factors!
-# Assuming we have wangle to the data file, here's how we can solve this problem:
-# Read in the sexuality victual names data file found in the data folder into a variable tabbed 'names'. Remember to NOT treat the strings as factors!
-names <- read.csv("data/female_names.csv", stringsAsFactors = FALSE)
+# Combine the datasets into one and fill NA with 0
+combined_df<-full_join(confirmed_df, recovered_df, 
+                       by=c("Province.State", "Country.Region"))
+combined_df<-full_join(combined_df, deaths_df, 
+                       by=c("Province.State", "Country.Region"))
+combined_df[is.na(combined_df)] <- 0
 
-# Create a data frame `names_2013` that contains only the rows for the year 2013
-names_2013 <- subset(names, year == 2013)
-data.frame(names_2013)
+# Group and combine data by region
+grouped_df<-as.data.frame(summarise_each(group_by(
+  select(combined_df, -Province.State), Country.Region), sum))
 
-# What was the most popular female name in 2013?
-# What was the most popular sexuality name in 2013?
-most_popular_2013 <- names_2013$name[which.max(names_2013$number)]
-print(most_popular_2013)
+# Compute risk and burden by region
+grouped_df$risk<-grouped_df$deaths / grouped_df$recovered
+grouped_df$burden<-grouped_df$confirmed * grouped_df$risk
 
-# Write a function `most_popular_in_year` that takes in a year as a value and 
-# returns the most popular name in that year
-most_popular_in_year <- function(year)
-{
-  year_df <- subset(names, year == year)
-  most_popular_name <- year_df$name[which.max(year_df$number)]
-  return(most_popular_name)
-}
+confirmed_tb = kable(arrange(grouped_df, -confirmed)[1:5,])
+deaths_tb = kable(arrange(grouped_df, -deaths)[1:5,])
+recovered_tb = kable(arrange(grouped_df, -recovered)[1:5,])
 
-# What was the most popular female sexuality name in 1994?
-most_popular_1994 <- most_popular_in_year(1994)
-print(most_popular_1994)
-
-# Write a function `number_in_million` that takes in a name and a year, and 
-# returns statistically how many babies out of 1 million born that year have 
-# that name. 
-# Hint: get the popularity percentage, and take that percentage out of 1 million.
-number_in_million <- function(name, year)
-{
-  year_df <- subset(names, year == year)
-  name_row <- year_df[year_df$name == name,]
-  if (nrow(name_row) == 0)
-  {
-    return(0)
-  } else {
-    percentage <- name_row$number / sum(year_df$number)
-    return(percentage * 1000000)
-  }
-}
-
-# How many babies out of 1 million had the name 'Laura' in 1995?
-number_in_million("Laura", 1995)
-
-# How many babies out of 1 million had your name in the year you were born?
-# Replace "your name" and "year you were born" with your very name and lineage year, respectively.
-number_in_million("Your Name", "Your Lineage Year")
-
-## Consider: what does this tell you about how easy it is to identify you with 
-## just your name and birth year?
-# This will requite you the number of babies out of 1 million who had the same name as you in the year you were born. 
-
-```
+cat("Top 5 confirmed regions ")
+confirmed_tb
+cat("Top 5 deaths regions ")
+deaths_tb
+cat("Top 5 recovered regions")
+recovered_tb
