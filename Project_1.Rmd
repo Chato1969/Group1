@@ -358,51 +358,52 @@ recovered_tb
 ### GitHub Log
 
 ```{bash gitlog} 
+
 git log --pretty=format:"%nSubject: %s%nAuthor: %aN%nDate: %aD%nBody: %b"
-git log --pretty=format:"%cn committed %h on %cd"
+#git log --pretty=format:"%cn committed %h on %cd"
 
 # Double-check that the current branch is the `master` branch
-git checkout master
+#git checkout master
 
 # Create and switch to a new feature branch (called `new-chart`)
-git checkout -b new-chart
+#git checkout -b new-chart
 
 # Add and commit changes to the current (`new-chart`) branch
-git add .
-git commit -m "Add progress on new vis feature"
+#git add .
+#git commit -m "Add progress on new vis feature"
 
 # Push to a new branch on `origin` (GitHub) called `new-chart`,
 # enabling tracking
-git push -u origin new-chart
+#git push -u origin new-chart
 
 # Use `git fetch` to "download" commits from GitHub, without merging
 # This makes the remote branch available locally
-git fetch origin
+#git fetch origin
 
 # Switch to local copy of the `new-chart` branch
-git checkout new-chart
+#git checkout new-chart
 
 # Work on the feature is done outside of terminal...
 
 # Add, commit, and push the changes back to `origin`
 # (to the existing `new-chart` branch, which this branch tracks)
-git add .
-git commit -m "Add more progress on feature"
-git push
+#git add .
+#git commit -m "Add more progress on feature"
+#git push
 
 # Download and merge changes from the `new-chart` branch on GitHub
 # to the current branch
-git pull origin new-chart
+#git pull origin new-chart
 
 # Switch to the `master` branch, and download any changes
-git checkout master
-git pull
+#git checkout master
+#git pull
 
 # Merge the feature branch into the master branch (locally)
-git merge new-chart
+#git merge new-chart
 # Fix any merge conflicts!
 # Add and commit these fixes (if necessary)
 
 # Push the updated `master` code back to GitHub
-git push
+#git push
 ```
