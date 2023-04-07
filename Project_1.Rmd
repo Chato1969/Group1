@@ -4,6 +4,7 @@ author: "Wesley Newcomb"
 date: "2023-03-24"
 output:
   html_document: default
+  word_document: default
   pdf_document: default
 df_print: paged
 ---
@@ -357,53 +358,36 @@ recovered_tb
 
 ### GitHub Log
 
-```{bash gitlog} 
+#```{bash gitlog}
+#git log --pretty=format:"%nSubject: %s%nAuthor: %aN%nDate: %aD%nBody: %b"
+#```
 
-git log --pretty=format:"%nSubject: %s%nAuthor: %aN%nDate: %aD%nBody: %b"
-#git log --pretty=format:"%cn committed %h on %cd"
+```{r}
+#Could not get the above script to work correctly on my system.This is the output from running the above script directly from the command line:
 
-# Double-check that the current branch is the `master` branch
-#git checkout master
-
-# Create and switch to a new feature branch (called `new-chart`)
-#git checkout -b new-chart
-
-# Add and commit changes to the current (`new-chart`) branch
-#git add .
-#git commit -m "Add progress on new vis feature"
-
-# Push to a new branch on `origin` (GitHub) called `new-chart`,
-# enabling tracking
-#git push -u origin new-chart
-
-# Use `git fetch` to "download" commits from GitHub, without merging
-# This makes the remote branch available locally
-#git fetch origin
-
-# Switch to local copy of the `new-chart` branch
-#git checkout new-chart
-
-# Work on the feature is done outside of terminal...
-
-# Add, commit, and push the changes back to `origin`
-# (to the existing `new-chart` branch, which this branch tracks)
-#git add .
-#git commit -m "Add more progress on feature"
-#git push
-
-# Download and merge changes from the `new-chart` branch on GitHub
-# to the current branch
-#git pull origin new-chart
-
-# Switch to the `master` branch, and download any changes
-#git checkout master
-#git pull
-
-# Merge the feature branch into the master branch (locally)
-#git merge new-chart
-# Fix any merge conflicts!
-# Add and commit these fixes (if necessary)
-
-# Push the updated `master` code back to GitHub
-#git push
+cat("\n",
+    "Subject:", 'Update README.md',"\n", 
+    "Author:", 'wesne',"\n",
+    "Date:", 'Thu, 6 Apr 2023 10:20:17 -0700',"\n",
+    "Body:","Added names to the README file","\n\n",
+    "Subject:", "Added first rev of readme.md","\n",
+    "Author:", 'Chato1969',"\n",
+    "Date:", "Wed, 5 Apr 2023 23:28:47 -0700","\n",
+    "Body:","\n\n",
+    "Subject:",' Added first rev of index.md',"\n", 
+    "Author:", 'Chato1969', "\n",
+    "Date:", 'Wed, 5 Apr 2023 23:25:33 -0700',"\n",
+    "Body:","\n\n",
+    "Subject:", 'Updated responses to be more generic and automatic such that they are created based on data',"\n",'pulled automatically from the table. Fixed typos and minor bugs.',"\n",
+    "Author:", 'Chato1969',"\n",
+    "Date:", 'Wed, 5 Apr 2023 18:06:15 -0700',"\n",
+    "Body:","\n\n",
+    "Subject:",' Added first rev of index.md',"\n", 
+    "Author:", 'Chato1969', "\n",
+    "Date:", 'Wed, 5 Apr 2023 23:25:33 -0700',"\n",
+    "Body:","\n\n",
+    "Subject:", "Merge branch 'new-chart'","\n",
+    "Author:", 'Wesley Newcomb',"\n\n"
+    ) 
 ```
+
